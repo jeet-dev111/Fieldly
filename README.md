@@ -43,7 +43,7 @@ Fieldly addresses structural inefficiencies in farmland leasing and agricultural
 
 ### Mission
 
-Democratize access to agricultural land and intelligence by building a trusted, transparent, and technology-driven ecosystem connecting landowners with farmers.
+Build trusted digital infrastructure for farmland leasing, agricultural coordination, and rural intelligence systems.
 
 ## Problem Statement
 
@@ -92,7 +92,7 @@ Fieldly is built as a modular, event-driven system designed for scalability and 
 
 | Layer | Purpose | Technologies |
 |---|---|---|
-| Client Layer | Web application for landowners and farmers | Next.js 16, React 19, TypeScript 5, Tailwind CSS 4 |
+| Client Layer | Web application for landowners and farmers | Next.js, React, TypeScript 5, Tailwind CSS 4 |
 | Authentication | User identity and access management | Clerk |
 | API Layer | Typed backend services and business logic | Next.js API Routes, Server Actions |
 | Data Layer | Relational data with type-safe queries | PostgreSQL, Prisma ORM 6.19 |
@@ -171,32 +171,32 @@ Fieldly is built as a modular, event-driven system designed for scalability and 
 
 ### Frontend
 
-| Technology | Version | Purpose |
-|---|---|---|
-| Next.js | 16.1 | React framework with App Router and Server Components |
-| React | 19.2 | UI library with concurrent features |
-| TypeScript | 5 | Type-safe development |
-| Tailwind CSS | 4 | Utility-first CSS framework |
-| Radix UI | Latest | Headless UI primitives |
-| Framer Motion | 12.29 | Animation library |
-| Lucide React | 0.563 | Icon library |
-| Recharts | 3.7 | Composable charting library |
-| React CountUp | 6.5 | Animated number transitions |
-| Sonner | 2.0 | Toast notification system |
-| Next Themes | 0.4 | Dark/light mode theming |
-| React Hook Form | 7.71 | Form state management |
-| Zod | 4.3 | Schema validation |
+| Technology | Purpose |
+|---|---|
+| Next.js | React framework with App Router and Server Components |
+| React | Concurrent UI rendering and component architecture |
+| TypeScript | End-to-end type-safe development |
+| Tailwind CSS | Utility-first styling system |
+| Radix UI | Accessible headless UI primitives |
+| Framer Motion | Declarative animations and transitions |
+| Lucide React | Icon system |
+| Recharts | Interactive data visualization |
+| React CountUp | Animated statistical counters |
+| Sonner | Toast notification system |
+| next-themes | Theme management and dark mode |
+| React Hook Form | Performant form state management |
+| Zod | Runtime schema validation |
 
-### Backend and Data
+### Backend & Infrastructure
 
-| Technology | Version | Purpose |
-|---|---|---|
-| Prisma | 6.19 | Type-safe ORM |
-| PostgreSQL | Latest | Primary relational database |
-| Supabase | 2.99 | Database hosting and file storage |
-| Upstash Redis | 1.37 | Serverless Redis for caching and rate limiting |
-| Pusher | 8.4 | Real-time WebSocket infrastructure |
-| Svix | 1.84 | Webhook management and delivery |
+| Technology | Purpose |
+|---|---|
+| Prisma ORM | Type-safe database access and query management |
+| PostgreSQL | Primary relational database |
+| Supabase Storage | Object storage for media and documents |
+| Upstash Redis | Caching, rate limiting, and transient state management |
+| Pusher | Real-time event synchronization via WebSockets |
+| Svix | Webhook delivery and event handling |
 
 ### Authentication
 
@@ -276,7 +276,7 @@ cp .env.example .env
 
 Update `.env` with required credentials:
 
-- Database (PostgreSQL / Supabase)
+- Database (PostgreSQL)
 - Authentication (Clerk)
 - Realtime (Pusher)
 - Caching (Upstash Redis)
@@ -303,7 +303,7 @@ pnpm prisma migrate dev
 pnpm dev
 ```
 
-Application will be available at:
+The application will be available at:
 
 ```
 http://localhost:3000
