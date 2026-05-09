@@ -171,21 +171,21 @@ Fieldly is built as a modular, event-driven system designed for scalability and 
 
 ### Frontend
 
-| Technology | Version | Purpose |
-|---|---|---|
-| Next.js | 16.1 | React framework with App Router and Server Components |
-| React | 19.2 | UI library with concurrent features |
-| TypeScript | 5 | Type-safe development |
-| Tailwind CSS | 4 | Utility-first CSS framework |
-| Radix UI | Latest | Headless UI primitives |
-| Framer Motion | 12.29 | Animation library |
-| Lucide React | 0.563 | Icon library |
-| Recharts | 3.7 | Composable charting library |
-| React CountUp | 6.5 | Animated number transitions |
-| Sonner | 2.0 | Toast notification system |
-| Next Themes | 0.4 | Dark/light mode theming |
-| React Hook Form | 7.71 | Form state management |
-| Zod | 4.3 | Schema validation |
+| Technology | Purpose |
+|---|---|
+| Next.js | React framework with App Router and Server Components |
+| React | Concurrent UI rendering and component architecture |
+| TypeScript | End-to-end type-safe development |
+| Tailwind CSS | Utility-first styling system |
+| Radix UI | Accessible headless UI primitives |
+| Framer Motion | Declarative animations and transitions |
+| Lucide React | Icon system |
+| Recharts | Interactive data visualization |
+| React CountUp | Animated statistical counters |
+| Sonner | Toast notification system |
+| next-themes | Theme management and dark mode |
+| React Hook Form | Performant form state management |
+| Zod | Runtime schema validation |
 
 ### Backend & Infrastructure
 
