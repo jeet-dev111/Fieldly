@@ -303,7 +303,7 @@ pnpm prisma migrate dev
 pnpm dev
 ```
 
-Application will be available at:
+The application will be available at:
 
 ```
 http://localhost:3000
