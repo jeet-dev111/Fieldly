@@ -1,3 +1,6 @@
+# =========================
+# Builder Stage
+# =========================
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -24,36 +27,41 @@ ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 ENV CLERK_SECRET_KEY=$CLERK_SECRET_KEY
 ENV DATABASE_URL=$DATABASE_URL
 
+# =========================
+# Dependencies
+# =========================
 COPY package.json pnpm-lock.yaml ./
 
 COPY prisma ./prisma
 
 RUN pnpm install --frozen-lockfile
 
+# =========================
+# Source Code
+# =========================
 COPY . .
 
+# =========================
+# Build Next.js standalone app
+# =========================
 RUN pnpm build
 
 # =========================
-# Production Image
+# Production Runner
 # =========================
-FROM node:20-alpine
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-RUN npm install -g pnpm
-
-# Copy only necessary files
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/pnpm-lock.yaml ./
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/next.config.* ./
-
 ENV NODE_ENV=production
+
+# =========================
+# Copy standalone output
+# =========================
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
 EXPOSE 3000
 
-CMD ["pnpm", "start"]
+CMD ["node", "server.js"]

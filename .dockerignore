@@ -11,3 +11,5 @@ CONTRIBUTING.md
 docker-compose.dev.yml
 
 .vercel
+
+.secrets
