@@ -3,19 +3,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
       args:
         NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
         SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
-
         NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
         CLERK_SECRET_KEY: ${CLERK_SECRET_KEY}
+        DATABASE_URL: ${DATABASE_URL}
 
     container_name: fieldly-app-dev
 
-    command: pnpm dev
-    
+    restart: unless-stopped
+
+    command: pnpm dev --no-turbopack
+
     ports:
       - "3000:3000"
 
@@ -26,17 +27,27 @@ services:
       NODE_ENV: development
       WATCHPACK_POLLING: true
 
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/fieldly
+
+      REDIS_URL: redis://redis:6379
+
     volumes:
-      - .:/app
+      - .:/app:cached
       - /app/node_modules
       - /app/.next
 
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+
+      redis:
+        condition: service_healthy
+
+    networks:
+      - fieldly-network
 
   postgres:
-    image: postgres:16
+    image: postgres:16-alpine
 
     container_name: fieldly-postgres-dev
 
@@ -53,13 +64,41 @@ services:
     volumes:
       - postgres_data_dev:/var/lib/postgresql/data
 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - fieldly-network
+
   redis:
     image: redis:7-alpine
 
     container_name: fieldly-redis-dev
 
+    restart: unless-stopped
+
     ports:
       - "6379:6379"
 
+    volumes:
+      - redis_data_dev:/data
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - fieldly-network
+
 volumes:
   postgres_data_dev:
+  redis_data_dev:
+
+networks:
+  fieldly-network:
+    driver: bridge
